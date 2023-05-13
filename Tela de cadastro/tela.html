@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tela de Cadastro</title>
+  <style>
+    /* Estilos CSS */
+  </style>
+  <script>
+    function salvarDados() {
+      var nome = document.getElementById('nome').value;
+      var email = document.getElementById('email').value;
+      var senha = document.getElementById('senha').value;
+
+      var dados = {
+        nome: nome,
+        email: email,
+        senha: senha
+      };
+
+      // Armazena os dados no Local Storage como uma string JSON
+      localStorage.setItem('dadosCadastro', JSON.stringify(dados));
+
+      alert('Dados salvos localmente!');
+    }
+
+    function buscarDados() {
+      var dadosString = localStorage.getItem('dadosCadastro');
+
+      if (dadosString) {
+        var dados = JSON.parse(dadosString);
+
+        console.log('Nome: ' + dados.nome);
+        console.log('E-mail: ' + dados.email);
+        console.log('Senha: ' + dados.senha);
+
+        document.getElementById('nome').value = dados.nome;
+        document.getElementById('email').value = dados.email;
+        document.getElementById('senha').value = dados.senha;
+      } else {
+        console.log('Nenhum dado encontrado no Local Storage.');
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro</h2>
+    <form>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" required>
+      </div>
+      <div class="form-group">
+        <button type="button" onclick="salvarDados()">Cadastrar</button>
+      </div>
+    </form>
+    <button type="button" onclick="buscarDados()">Buscar Dados</button>
+  </div>
+
+  <script>
+    buscarDados(); // Chamada da função buscarDados() no carregamento da página
+  </script>
+</body>
+</html>
